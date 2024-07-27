@@ -7,8 +7,6 @@ lxml
 openai
 matplotlib
 unstructured[all-docs]
-unstructured-pytesseract
-pytesseract
 chromadb
 langchain
 langchain_openai
