@@ -9,4 +9,5 @@ ffmpeg
 libsm6 
 libxext6
 tesseract-ocr-eng 
+python3-opencv
 tesseract-ocr-script-latn
