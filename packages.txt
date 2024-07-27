@@ -1,4 +1,12 @@
 poppler-utils
 tesseract-ocr
+libleptonica-dev
 libtesseract-dev
 ghostscript
+python3-pil
+libgl1
+ffmpeg 
+libsm6 
+libxext6
+tesseract-ocr-eng 
+tesseract-ocr-script-latn

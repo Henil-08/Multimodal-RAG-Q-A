@@ -14,3 +14,4 @@ langchain_core
 python-dotenv
 langchain_huggingface
 langchain_community
+opencv-python
