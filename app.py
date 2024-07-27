@@ -92,7 +92,7 @@ if uploaded_file and apikey:
 
     # Mutlivector Retreiver
     vectorstore = Chroma(
-        collection_name="mm_rag", embedding_function=OpenAIEmbeddings(api_key=apikey)
+        collection_name="mm_rag", embedding_function=OpenAIEmbeddings(openai_api_key=apikey)
     )
     retriever_multi_vector_img = create_multi_vector_retriever(
         vectorstore,
