@@ -2,7 +2,7 @@ import io
 import re
 import os
 import uuid
-from . import utils
+from utils import text_table_summarizer, encode_image, image_summarize, generate_img_summaries, create_multi_vector_retriever, plt_img_base64, looks_like_base64, is_image_data, resize_base64_image, split_image_text_types, img_prompt_func, multi_modal_rag_chain
 import base64
 import openai
 from PIL import Image
@@ -73,23 +73,23 @@ if uploaded_file and apikey:
         These summaries will be embedded and used to retrieve the raw table elements. \
         Give a concise summary of the table that is well optimized for retrieval. Table:{element} """
     prompt_table = ChatPromptTemplate.from_template(prompt_text)
-    table_summaries = utils.text_table_summarizer(table, apikey, prompt_table)
+    table_summaries = text_table_summarizer(table, apikey, prompt_table)
 
     # Text Summaries
     prompt_text = """You are an assistant tasked with summarizing text for retrieval. \
         These summaries will be embedded and used to retrieve the raw text elements. \
         Give a concise summary of the table or text that is well optimized for retrieval.text: {element} """
     prompt_for_text = ChatPromptTemplate.from_template(prompt_text)
-    text_summaries = utils.text_table_summarizer(text, apikey, prompt_for_text)
+    text_summaries = text_table_summarizer(text, apikey, prompt_for_text)
 
     # Image Summaries
-    img_base64_list, image_summaries = utils.generate_img_summaries(fpath)
+    img_base64_list, image_summaries = generate_img_summaries(fpath)
 
     # Mutlivector Retreiver
     vectorstore = Chroma(
         collection_name="mm_rag", embedding_function=OpenAIEmbeddings()
     )
-    retriever_multi_vector_img = utils.create_multi_vector_retriever(
+    retriever_multi_vector_img = create_multi_vector_retriever(
         vectorstore,
         text_summaries,
         text,
@@ -100,7 +100,7 @@ if uploaded_file and apikey:
     )
 
     # RAG chain
-    chain_multimodal_rag = utils.multi_modal_rag_chain(retriever_multi_vector_img)
+    chain_multimodal_rag = multi_modal_rag_chain(retriever_multi_vector_img)
 
     user_input = st.text_input("Your question:")
     if user_input:
@@ -112,7 +112,7 @@ if uploaded_file and apikey:
         for doc in docs:
             if doc in image_summaries:
                 index = image_summaries.index(doc)
-                st.write("Image Referred from:", utils.plt_img_base64(img_base64_list[index]))
+                st.write("Image Referred from:", plt_img_base64(img_base64_list[index]))
             elif doc in text_summaries:
                 st.write("Text Referred from:", doc)
             elif doc in table_summaries:
