@@ -1,6 +1,3 @@
 pkg-config
 poppler-utils
-tesseract-ocr 
-libtesseract-dev 
-libleptonica-dev 
 python3-pil 
