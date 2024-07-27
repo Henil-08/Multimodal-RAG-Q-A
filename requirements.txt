@@ -8,7 +8,6 @@ openai
 matplotlib
 unstructured[all-docs]
 unstructured-pytesseract
-tesseract-ocr
 pytesseract
 chromadb
 langchain
