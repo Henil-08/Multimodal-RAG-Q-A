@@ -1,15 +1,14 @@
 import subprocess
 import streamlit as st
 
-# args = [
-#     "sudo apt-get install poppler-utils",
-#     "sudo apt-get install libleptonica-dev tesseract-ocr libtesseract-dev python3-pil tesseract-ocr-eng tesseract-ocr-script-latn"
-#     "pip install unstructured-pytesseract",
-#     "pip install tesseract-ocr"
-# ]
-# for arg in args:
-#     st.info(f"Running '{' '.join(arg)}'")
-#     result = subprocess.run(arg, capture_output=True, text=True)
+args = [
+    "sudo apt-get install poppler-utils",
+    "sudo apt-get install libleptonica-dev tesseract-ocr libtesseract-dev python3-pil tesseract-ocr-eng tesseract-ocr-script-latn"
+    "pip install unstructured-pytesseract",
+    "pip install tesseract-ocr"
+]
+st.info(f"Running '{' '.join(args)}'")
+result = subprocess.run(args, capture_output=True, text=True)
 
 import io
 import re
