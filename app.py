@@ -2,7 +2,7 @@ import io
 import re
 import os
 import uuid
-import utils
+from . import utils
 import base64
 import openai
 from PIL import Image
