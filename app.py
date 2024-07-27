@@ -37,8 +37,13 @@ uploaded_file=st.file_uploader("Choose A Pdf file", type="pdf", accept_multiple_
 
 ## Process uploaded  PDF's
 if uploaded_file and apikey:
+    temppdf=f"./temp.pdf"
+    with open(temppdf,"wb") as file:
+        file.write(uploaded_file.getvalue())
+        file_name=uploaded_file.name
+
     raw_pdf_elements=partition_pdf(
-        filename=uploaded_file,                  # mandatory
+        filename=temppdf,                  # mandatory
         strategy="hi_res",                                 # mandatory to use ``hi_res`` strategy
         extract_images_in_pdf=True,                       # mandatory to set as ``True``
         extract_image_block_types=["Image", "Table"],          # optional
