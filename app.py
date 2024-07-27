@@ -10,7 +10,7 @@ args = [
     "pip install tesseract-ocr"
 ]
 st.info(f"Running '{' '.join(args)}'")
-result = subprocess.run(args, capture_output=True, text=True)
+result = subprocess.run(args, capture_output=True, text=True, shell=True, check=True)
 
 import io
 import re
