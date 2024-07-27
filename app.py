@@ -2,6 +2,8 @@ import subprocess
 import streamlit as st
 
 args = [
+    "apt-get install sudo",
+    "sudo apt-get update",
     "sudo apt-get install poppler-utils",
     "sudo apt-get install libleptonica-dev tesseract-ocr libtesseract-dev python3-pil tesseract-ocr-eng tesseract-ocr-script-latn"
     "pip install unstructured-pytesseract",
