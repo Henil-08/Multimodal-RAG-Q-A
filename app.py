@@ -88,7 +88,7 @@ if uploaded_file and apikey:
     text_summaries = text_table_summarizer(text, apikey, prompt_for_text)
 
     # Image Summaries
-    img_base64_list, image_summaries = generate_img_summaries(fpath)
+    img_base64_list, image_summaries = generate_img_summaries(fpath, apikey)
 
     # Mutlivector Retreiver
     vectorstore = Chroma(
@@ -105,7 +105,7 @@ if uploaded_file and apikey:
     )
 
     # RAG chain
-    chain_multimodal_rag = multi_modal_rag_chain(retriever_multi_vector_img)
+    chain_multimodal_rag = multi_modal_rag_chain(retriever_multi_vector_img, apikey)
 
     user_input = st.text_input("Your question:")
     if user_input:

@@ -1,25 +1,30 @@
-import os
 import io
 import re
+import os
 import uuid
-import openai
 import base64
+import openai
 from PIL import Image
+from typing import Any
+import streamlit as st
+from pydantic import BaseModel
 from IPython.display import HTML, display
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
-from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain.retrievers.multi_vector import MultiVectorRetriever
 from langchain.storage import InMemoryStore
 from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
 from langchain_openai import OpenAIEmbeddings
+from unstructured.partition.pdf import partition_pdf
 
 
 def text_table_summarizer(docs, apikey, prompt):
     # Text summary chain
-    openai.api_key = apikey
-    model = ChatOpenAI(temperature=0, model="gpt-4")
+    model = ChatOpenAI(temperature=0, model="gpt-4", api_key=apikey)
     summarize_chain = {"element": lambda x: x} | prompt | model | StrOutputParser()
     summaries = summarize_chain.batch(docs, {"max_concurrency": 5})
 
@@ -30,9 +35,9 @@ def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode("utf-8")
     
-def image_summarize(img_base64, prompt):
+def image_summarize(img_base64, prompt, apikey):
     """Make image summary"""
-    chat = ChatOpenAI(model="gpt-4o", max_tokens=1024)
+    chat = ChatOpenAI(model="gpt-4o", max_tokens=1024, api_key=apikey)
 
     msg = chat.invoke(
         [
@@ -49,7 +54,7 @@ def image_summarize(img_base64, prompt):
     )
     return msg.content
 
-def generate_img_summaries(path):
+def generate_img_summaries(path, apikey):
     """
     Generate summaries and base64 encoded strings for images
     path: Path to list of .jpg files extracted by Unstructured
@@ -72,7 +77,7 @@ def generate_img_summaries(path):
             img_path = os.path.join(path, img_file)
             base64_image = encode_image(img_path)
             img_base64_list.append(base64_image)
-            image_summaries.append(image_summarize(base64_image, prompt))
+            image_summaries.append(image_summarize(base64_image, prompt, apikey))
 
 
     return img_base64_list, image_summaries
@@ -227,13 +232,13 @@ def img_prompt_func(data_dict):
     return [HumanMessage(content=messages)]
 
 
-def multi_modal_rag_chain(retriever):
+def multi_modal_rag_chain(retriever, apikey):
     """
     Multi-modal RAG chain
     """
 
     # Multi-modal LLM
-    model = ChatOpenAI(temperature=0, model="gpt-4o", max_tokens=1024)
+    model = ChatOpenAI(temperature=0, model="gpt-4o", max_tokens=1024, api_key=apikey)
 
 
     # RAG pipeline
