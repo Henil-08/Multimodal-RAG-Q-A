@@ -1,3 +1,4 @@
-pkg-config
 poppler-utils
-python3-pil 
+tesseract-ocr
+libtesseract-dev
+ghostscript

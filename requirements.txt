@@ -14,4 +14,3 @@ langchain_core
 python-dotenv
 langchain_huggingface
 langchain_community
-tesseract-ocr
