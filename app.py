@@ -1,17 +1,3 @@
-import subprocess
-import streamlit as st
-
-args = [
-    "apt-get install sudo",
-    "sudo apt-get update",
-    "sudo apt-get install poppler-utils",
-    "sudo apt-get install libleptonica-dev tesseract-ocr libtesseract-dev python3-pil tesseract-ocr-eng tesseract-ocr-script-latn"
-    "pip install unstructured-pytesseract",
-    "pip install tesseract-ocr"
-]
-st.info(f"Running '{' '.join(args)}'")
-result = subprocess.run(args, capture_output=True, text=True, shell=True, check=True)
-
 import io
 import re
 import os
@@ -21,6 +7,7 @@ import base64
 import openai
 from PIL import Image
 from typing import Any
+import streamlit as st
 from pydantic import BaseModel
 from IPython.display import HTML, display
 from langchain_core.runnables import RunnableLambda, RunnablePassthrough
