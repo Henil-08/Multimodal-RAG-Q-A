@@ -1,5 +1,6 @@
 poppler-utils
 tesseract-ocr
+libsqlite3-dev
 libleptonica-dev
 libtesseract-dev
 ghostscript
