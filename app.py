@@ -133,7 +133,7 @@ if uploaded_file and apikey:
         docs = retriever_multi_vector_img.invoke(user_input)
         response = chain_multimodal_rag.invoke(user_input)
 
-        st.write("Assistant:", response['answer'])
+        st.write("Assistant:", response)
 
         for doc in docs:
             if doc in image_summaries:
