@@ -5,6 +5,7 @@ import uuid
 from utils import text_table_summarizer, encode_image, image_summarize, generate_img_summaries, create_multi_vector_retriever, plt_img_base64, looks_like_base64, is_image_data, resize_base64_image, split_image_text_types, img_prompt_func, multi_modal_rag_chain
 import base64
 import openai
+import shutil
 from PIL import Image
 from typing import Any
 import streamlit as st
@@ -17,12 +18,26 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
 from langchain.retrievers.multi_vector import MultiVectorRetriever
 from langchain.storage import InMemoryStore
+from langchain_groq import ChatGroq
 from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
 from langchain_openai import OpenAIEmbeddings
 from unstructured.partition.pdf import partition_pdf
 
 fpath = "Data/Extracted Data"
+
+try:
+    shutil.rmtree(fpath)
+except:
+    pass 
+
+## load the GROQ 
+os.environ['GROQ_API_KEY']=st.secrets.apikey.groq
+
+## Langsmith Tracking
+os.environ["LANGCHAIN_API_KEY"]=st.secrets.apikey.langchain
+os.environ["LANGCHAIN_PROJECT"]=st.secrets.apikey.langchain_project
+os.environ["LANGCHAIN_TRACING_V2"]="true"
 
 # Title
 st.title("Multimodal RAG PDF Q&A using GPT-4o")

@@ -16,3 +16,4 @@ langchain_huggingface
 langchain_community
 opencv-python
 protobuf==3.20.*
+langchain_groq
