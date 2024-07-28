@@ -17,4 +17,4 @@ langchain_community
 opencv-python
 protobuf==3.20.*
 langchain_groq
-sqlite3
+pysqlite3-binary
