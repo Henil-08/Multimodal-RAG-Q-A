@@ -32,11 +32,11 @@ except:
     pass 
 
 ## load the GROQ 
-os.environ['GROQ_API_KEY']=st.secrets.apikey.groq
+os.environ['GROQ_API_KEY']=st.secrets.apisecrets.groq
 
 ## Langsmith Tracking
-os.environ["LANGCHAIN_API_KEY"]=st.secrets.apikey.langchain
-os.environ["LANGCHAIN_PROJECT"]=st.secrets.apikey.langchain_project
+os.environ["LANGCHAIN_API_KEY"]=st.secrets.apisecrets.langchain
+os.environ["LANGCHAIN_PROJECT"]=st.secrets.apisecrets.langchain_project
 os.environ["LANGCHAIN_TRACING_V2"]="true"
 
 # Title
