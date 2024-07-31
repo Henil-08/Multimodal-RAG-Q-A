@@ -139,9 +139,11 @@ if uploaded_file and apikey:
             if doc in image_summaries:
                 index = image_summaries.index(doc)
                 st.write("Image Referred from:", plt_img_base64(img_base64_list[index]))
-            elif doc in text_summaries:
+
+            if doc in text_summaries:
                 st.write("Text Referred from:", doc)
-            elif doc in table_summaries:
+                
+            if doc in table_summaries:
                 st.write("Table Reffered from:", doc)
 
 elif uploaded_file and not apikey:
